@@ -50,7 +50,6 @@
             <div class="menu">
                 <a href="./dashboard">Inicio</a>
                 <a href="./agregar">Agregar tarea <i class="fa-solid fa-plus"></i></a>
-                <a href="./logout">Logout <i class="fa-solid fa-power-off"></i></a>
             </div>
         </nav>
     </header>

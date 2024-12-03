@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/styles.css">
     <title>Menú de Navegación</title>
     <style>
         body {
@@ -50,7 +51,6 @@
             <div class="menu">
                 <a href="./dashboard">Inicio</a>
                 <a href="./agregar">Agregar tarea <i class="fa-solid fa-plus"></i></a>
-                <a href="./logout">Logout <i class="fa-solid fa-power-off"></i></a>
             </div>
         </nav>
     </header>
@@ -151,7 +151,7 @@ document.getElementById("editTaskForm").addEventListener("submit", function(even
     };
 
     fetch('/tst_smc/api/tareas', {
-        method: 'PUT', // O 'PATCH' dependiendo de tu preferencia
+        method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
         },
@@ -161,6 +161,7 @@ document.getElementById("editTaskForm").addEventListener("submit", function(even
     .then(data => {
         console.log(data);
         alert('Tarea actualizada correctamente');
+        window.location.href = "./dashboard";
     })
     .catch(error => {
         console.error('Error:', error);

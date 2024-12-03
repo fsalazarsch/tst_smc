@@ -54,6 +54,8 @@
         </nav>
     </header>
     <main>
+        <?php $categs = json_decode($categs, true); ?>
+
     <table class="table">
         <thead>
             <tr>
@@ -62,14 +64,23 @@
                 <th>Estado</th>
                 <th>Nivel</th>
                 <th>Fecha de Vencimiento</th>
-                <th>Categoría</th>
+                <th>Categoría
+
+                <select id="filtroCategoria" onchange="filtrarPorCategoria()">
+                            <option value="">Todas</option>
+                            <?php foreach ($categs as $categoria) { ?>
+                                <option value="<?php echo htmlspecialchars($categoria['nombre']); ?>">
+                                    <?php echo htmlspecialchars($categoria['nombre']); ?>
+                                </option>
+                            <?php } ?>
+                        </select>
+                </th>
                 <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
                 <?php 
                 $tareas = json_decode($tareas, true);
-                $categs = json_decode($categs, true);
 
                 function vencida($dateStr){
                 $date = new DateTime();
@@ -87,7 +98,7 @@
                     }
                     
 
-                    echo '<tr>';
+                    echo '<tr data-categoria="' . htmlspecialchars($categoriaNombre) . '">';
                     echo '<td>' . htmlspecialchars($tarea['nombre']) . '</td>';
                     echo '<td>' . htmlspecialchars($tarea['descripcion']) . '</td>';
                     echo '<td>' . htmlspecialchars($tarea['estado'] == 0 ? 'Pendiente': 'Terminada') . '</td>';
@@ -98,7 +109,7 @@
                     echo  '</td>';
                     echo '<td>' . htmlspecialchars($categoriaNombre) . '</td>';
                     echo '<td>';
-                    echo '<a class="like" href="./editar/'.$tarea['id'].'" title="Editar"><i class="fa fa-pen"></i></a>  ';
+                    echo '<a class="like" href="./editar?id='.$tarea['id'].'" title="Editar"><i class="fa fa-pen"></i></a>  ';
                     echo '<a href="javascript:eliminarTarea('.$tarea['id'].')" class="remove" title="Eliminar"><i class="fa fa-trash"></i></a>  ';
                     if ($tarea['estado'] == 0) {
                         echo '<a href="javascript:terminarTarea('.$tarea['id'].')" class="remove" title="Terminar"><i class="fa fa-check"></i></a>';
@@ -162,7 +173,20 @@
             alert('Error al terminar la tarea');
         });
     }
-    
+        function filtrarPorCategoria() {
+            const categoriaSeleccionada = document.getElementById('filtroCategoria').value;
+            const filas = document.querySelectorAll('tbody tr');
+
+            filas.forEach(fila => {
+                const categoria = fila.getAttribute('data-categoria');
+                
+                if (categoriaSeleccionada === '' || categoria === categoriaSeleccionada) {
+                    fila.style.display = '';
+                } else {
+                    fila.style.display = 'none';
+                }
+            });
+        }
 window.onload = function() {
     //dejdao por si acaso fuese necesario
     //var userData = JSON.parse(localStorage.getItem('userData'));

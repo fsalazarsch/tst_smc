@@ -41,7 +41,15 @@ $routes['/tst_smc/agregar']['GET'] = function () use ($tareaController, $categor
     require 'views/agregar.php'; 
 };
 
-$routes['/tst_smc/editar/{id}']['GET'] = function ($id) use ($tareaController, $categoriaController) {
+$routes['/tst_smc/editar']['GET'] = function () use ($tareaController, $categoriaController) {
+
+    if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
+        http_response_code(400);
+        echo json_encode(["message" => "ID no válido"]);
+        return;
+    }
+
+    $id = (int)$_GET['id']; 
     $tarea = $tareaController->getTaskById($id);
     $categs = $categoriaController->getAllCategories();
     require 'views/editar.php'; 
