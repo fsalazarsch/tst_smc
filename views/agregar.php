@@ -50,6 +50,7 @@
             <div class="menu">
                 <a href="./dashboard">Inicio</a>
                 <a href="./agregar">Agregar tarea <i class="fa-solid fa-plus"></i></a>
+                <button type="button" class="btn btn-success" onclick="logout()">Logout <i class="fa-solid fa-power-off"></i></button>
             </div>
         </nav>
     </header>
@@ -141,11 +142,16 @@ document.getElementById("taskForm").addEventListener("submit", function(event) {
 <script>
 
 window.onload = function() {
-    //var userData = JSON.parse(localStorage.getItem('userData'));
-    //if (userData) {
-    //    console.log("Datos del usuario:", userData);
-    //} else {
-    //    console.log("No se encontraron datos del usuario.");
-    //}
+    var userData = JSON.parse(localStorage.getItem('userData'));
+    if (userData) {
+        console.log("usuario loguedo");
+    } else {
+        console.log("No se encontraron datos del usuario.");
+        window.location.href = "./";
+    }
 };
+function logout() {
+        localStorage.removeItem('userData');
+        location.reload();
+        }
 </script>

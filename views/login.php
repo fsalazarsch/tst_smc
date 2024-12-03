@@ -125,7 +125,7 @@
             if (data && data.user) {
                 alert("Inicio de sesión exitoso");
                 console.log("Usuario:", data.user); 
-                //localStorage.setItem('userData', JSON.stringify(data.user));
+                localStorage.setItem('userData', JSON.stringify(data.user));
                 window.location.href = "./dashboard";
             }
         })
@@ -168,7 +168,6 @@
         });
     }
 
-        // Función para verificar la contraseña
         function verifyPassword(inputPassword, storedPassword) {
             return inputPassword === storedPassword; 
         }
